@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Account Information Portal — IBM × Capita TVL</title>
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      :root {
+        --ibm-blue:   #0f62fe;
+        --ibm-dark:   #001141;
+        --capita-red: #e4003b;
+        --bg:         #f0f2f5;
+        --surface:    #ffffff;
+        --border:     #e2e5ea;
+        --text:       #0f1318;
+        --muted:      #5a6374;
+        --r-lg: 18px;
+        --r-md: 12px;
+        --r-sm: 7px;
+      }
+
+      body {
+        font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        font-size: 13px;
+        line-height: 1.55;
+      }
+
+      /* ── Top bar ── */
+      .topbar {
+        background: var(--ibm-dark);
+        height: 46px;
+        display: flex;
+        align-items: center;
+        padding: 0 24px;
+        gap: 10px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        border-bottom: 2px solid var(--ibm-blue);
+      }
+
+      .topbar-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ibm-blue); }
+
+      .topbar-label {
+        color: #a8b8d8;
+        font-size: 11px;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        font-weight: 600;
+      }
+
+      .topbar-sep { flex: 1; }
+
+      .topbar-badge {
+        background: rgba(15,98,254,0.18);
+        border: 1px solid rgba(15,98,254,0.4);
+        border-radius: 20px;
+        padding: 2px 10px;
+        font-size: 10px;
+        color: #7eb3ff;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      /* ── Layout ── */
+      .layout {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 28px 20px 52px;
+      }
+
+      /* ── Hero ── */
+      .hero {
+        border-radius: var(--r-lg);
+        background: linear-gradient(135deg, #001141 0%, #0a1f5c 50%, #0f0520 100%);
+        margin-bottom: 28px;
+        overflow: hidden;
+        position: relative;
+        border: 1px solid rgba(15,98,254,0.25);
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute; inset: 0;
+        background-image:
+          linear-gradient(rgba(15,98,254,0.06) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(15,98,254,0.06) 1px, transparent 1px);
+        background-size: 44px 44px;
+        pointer-events: none;
+      }
+
+      .hero::after {
+        content: "";
+        position: absolute;
+        top: -50px; right: -50px;
+        width: 260px; height: 260px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(15,98,254,0.2) 0%, transparent 70%);
+        pointer-events: none;
+      }
+
+      .hero-inner {
+        position: relative;
+        z-index: 1;
+        padding: 30px 36px 28px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      .hero-text h1 {
+        font-size: 24px;
+        font-weight: 700;
+        color: #ffffff;
+        letter-spacing: -0.3px;
+        margin-bottom: 7px;
+        line-height: 1.2;
+      }
+
+      .hero-text h1 span {
+        background: linear-gradient(90deg, #4d94ff, #a78bfa);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .hero-text p {
+        color: #a8bcd6;
+        font-size: 12.5px;
+        max-width: 520px;
+        line-height: 1.65;
+      }
+
+      .hero-meta {
+        display: flex;
+        gap: 6px;
+        margin-top: 14px;
+        flex-wrap: wrap;
+      }
+
+      .hero-pill {
+        background: rgba(255,255,255,0.08);
+        border: 1px solid rgba(255,255,255,0.13);
+        border-radius: 20px;
+        padding: 3px 11px;
+        font-size: 11px;
+        color: #a8bcd6;
+        font-weight: 600;
+      }
+
+      /* ── Logo panel ── */
+      .logo-panel {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-end;
+        flex-shrink: 0;
+      }
+
+      .logo-label {
+        font-size: 9.5px;
+        color: rgba(168,188,214,0.7);
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        font-weight: 800;
+        text-align: right;
+      }
+
+      .logo-cards {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        align-items: center;
+      }
+
+      .logo-card {
+        background: #ffffff;
+        border-radius: 14px;
+        padding: 14px 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 136px;
+        height: 76px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.32), 0 0 0 1px rgba(255,255,255,0.12);
+        transition: transform 0.2s, box-shadow 0.2s;
+        position: relative;
+      }
+
+      .logo-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 32px rgba(0,0,0,0.42), 0 0 0 1px rgba(255,255,255,0.18);
+      }
+
+      /* "IBM" label tab under logo */
+      .logo-card-label {
+        position: absolute;
+        bottom: -18px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 9px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(168,188,214,0.7);
+        white-space: nowrap;
+      }
+
+      .ibm-logo-img { width: 114px; height: auto; display: block; object-fit: contain; }
+      .capita-logo-svg { width: 130px; height: 44px; display: block; }
+
+      /* Partnership divider between logos */
+      .logo-sep {
+        width: 1px;
+        height: 44px;
+        background: rgba(255,255,255,0.12);
+        align-self: center;
+      }
+
+      /* ── Section grid ── */
+      .section-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 16px;
+      }
+
+      /* ── Nav card — the new minimal clickable card ── */
+      .nav-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--r-lg);
+        padding: 20px 22px 18px;
+        position: relative;
+        overflow: hidden;
+        text-decoration: none;
+        color: inherit;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
+        cursor: pointer;
+      }
+
+      .nav-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 28px rgba(0,0,0,0.10);
+        border-color: #c8d2e0;
+      }
+
+      /* left accent stripe */
+      .nav-card::before {
+        content: "";
+        position: absolute;
+        left: 0; top: 0; bottom: 0;
+        width: 3px;
+        border-radius: var(--r-lg) 0 0 var(--r-lg);
+      }
+
+      .nav-card.ac-blue::before   { background: var(--ibm-blue); }
+      .nav-card.ac-purple::before { background: #7c3aed; }
+      .nav-card.ac-teal::before   { background: #0d9488; }
+      .nav-card.ac-indigo::before { background: #4338ca; }
+      .nav-card.ac-orange::before { background: #ea580c; }
+      .nav-card.ac-green::before  { background: #059669; }
+      .nav-card.ac-rose::before   { background: #e11d48; }
+      .nav-card.ac-red::before    { background: var(--capita-red); }
+
+      /* card number */
+      .nav-num {
+        position: absolute;
+        top: 14px; right: 16px;
+        width: 22px; height: 22px;
+        border-radius: 50%;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        display: flex; align-items: center; justify-content: center;
+        font-size: 10px; font-weight: 800; color: var(--muted);
+      }
+
+      /* card header row */
+      .nav-head {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+      }
+
+      .nav-icon {
+        width: 38px; height: 38px;
+        border-radius: 10px;
+        display: flex; align-items: center; justify-content: center;
+        flex-shrink: 0;
+      }
+
+      .ni-blue   { background: #dbeafe; color: #1d4ed8; }
+      .ni-purple { background: #ede9fe; color: #7c3aed; }
+      .ni-teal   { background: #ccfbf1; color: #0d9488; }
+      .ni-indigo { background: #e0e7ff; color: #4338ca; }
+      .ni-orange { background: #ffedd5; color: #ea580c; }
+      .ni-green  { background: #d1fae5; color: #059669; }
+      .ni-rose   { background: #ffe4e6; color: #e11d48; }
+      .ni-red    { background: #fee2e2; color: #dc2626; }
+
+      .nav-head-text { flex: 1; min-width: 0; }
+
+      .nav-tag {
+        display: inline-block;
+        padding: 1px 7px;
+        border-radius: 20px;
+        font-size: 9px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        margin-bottom: 3px;
+      }
+
+      .nt-blue   { background: #dbeafe; color: #1e40af; }
+      .nt-purple { background: #ede9fe; color: #5b21b6; }
+      .nt-teal   { background: #ccfbf1; color: #0f766e; }
+      .nt-indigo { background: #e0e7ff; color: #3730a3; }
+      .nt-orange { background: #ffedd5; color: #9a3412; }
+      .nt-green  { background: #d1fae5; color: #065f46; }
+      .nt-rose   { background: #ffe4e6; color: #9f1239; }
+      .nt-red    { background: #fee2e2; color: #b91c1c; }
+
+      .nav-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--text);
+        line-height: 1.25;
+      }
+
+      /* one-liner description */
+      .nav-desc {
+        font-size: 11.5px;
+        color: var(--muted);
+        line-height: 1.5;
+        padding-left: 49px; /* indent under icon */
+      }
+
+      /* explore link row */
+      .nav-explore {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 4px;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--ibm-blue);
+        padding-top: 4px;
+        border-top: 1px solid var(--border);
+        margin-top: 2px;
+      }
+
+      .nav-explore svg { transition: transform 0.15s; }
+      .nav-card:hover .nav-explore svg { transform: translateX(3px); }
+
+      /* ── Footer ── */
+      .footer {
+        margin-top: 28px;
+        padding-top: 16px;
+        border-top: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        color: var(--muted);
+        font-size: 11px;
+      }
+
+      .footer-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--muted); opacity: 0.4; }
+
+      /* ── User chip in topbar ── */
+      .user-chip {
+        display: inline-flex; align-items: center; gap: 7px;
+        background: rgba(255,255,255,0.08);
+        border: 1px solid rgba(255,255,255,0.15);
+        border-radius: 20px; padding: 3px 10px 3px 5px;
+        font-size: 11px; color: #d1e0f5; font-weight: 600;
+      }
+
+      .user-avatar {
+        width: 22px; height: 22px; border-radius: 50%;
+        background: var(--ibm-blue);
+        display: flex; align-items: center; justify-content: center;
+        font-size: 10px; font-weight: 800; color: #fff; flex-shrink: 0;
+      }
+
+      .btn-logout {
+        display: inline-flex; align-items: center; gap: 5px;
+        background: transparent;
+        border: 1px solid rgba(255,255,255,0.2);
+        border-radius: 6px; padding: 3px 10px;
+        font-size: 11px; color: #a8b8d8; font-weight: 600;
+        cursor: pointer; font-family: inherit;
+        transition: background 0.15s, color 0.15s;
+      }
+
+      .btn-logout:hover { background: rgba(255,255,255,0.08); color: #fff; }
+
+      /* ── Responsive ── */
+      @media (max-width: 640px) {
+        .hero-inner  { padding: 22px 20px 20px; }
+        .hero-text h1 { font-size: 20px; }
+        .logo-panel  { align-items: flex-start; }
+        .logo-cards  { justify-content: flex-start; }
+        .layout      { padding: 20px 12px 40px; }
+        .topbar      { padding: 0 14px; }
+        .user-chip span.user-name { display: none; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- Top bar -->
+    <div class="topbar">
+      <div class="topbar-dot"></div>
+      <span class="topbar-label">Account Information Portal</span>
+      <div class="topbar-sep"></div>
+      <span class="topbar-badge">IBM × Capita TVL</span>
+      <!-- User chip + logout — populated by JS -->
+      <div class="user-chip" id="userChip" style="display:none;">
+        <div class="user-avatar" id="userAvatar"></div>
+        <span class="user-name" id="userName"></span>
+      </div>
+      <button class="btn-logout" id="logoutBtn" style="display:none;" onclick="logout()">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Sign Out
+      </button>
+    </div>
+
+    <div class="layout">
+
+      <!-- ═══ HERO ═══ -->
+      <section class="hero">
+        <div class="hero-inner">
+          <div class="hero-text">
+            <h1>Account Information <span>Portal</span></h1>
+            <p>A unified reference hub for the IBM × Capita TVL account team. Select any section below to explore full details.</p>
+            <div class="hero-meta">
+              <span class="hero-pill">8 Sections</span>
+              <span class="hero-pill">Live Reference</span>
+              <span class="hero-pill">Internal Use Only</span>
+            </div>
+          </div>
+
+          <!-- ── Logos — IBM × Capita partnership panel ── -->
+          <div class="logo-panel">
+            <span class="logo-label">Powered by Partnership</span>
+            <div class="logo-cards">
+
+              <!-- IBM Logo -->
+              <div class="logo-card" title="IBM — Account Delivery Partner">
+                <img class="ibm-logo-img"
+                  src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg"
+                  alt="IBM"
+                  onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+                <!-- Fallback if SVG doesn't load -->
+                <span style="display:none;align-items:center;font-size:26px;font-weight:900;
+                             letter-spacing:-1px;color:#1F70C1;font-family:'Segoe UI',sans-serif;">IBM</span>
+                <span class="logo-card-label">IBM</span>
+              </div>
+
+              <!-- Visual separator -->
+              <div class="logo-sep"></div>
+
+              <!-- Capita Logo (inline SVG recreation) -->
+              <div class="logo-card" title="Capita — Client Partner">
+                <svg class="capita-logo-svg" viewBox="0 0 130 44"
+                     xmlns="http://www.w3.org/2000/svg" aria-label="Capita" role="img">
+                  <defs>
+                    <linearGradient id="capBar" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%"   stop-color="#1ecad3"/>
+                      <stop offset="100%" stop-color="#006da8"/>
+                    </linearGradient>
+                  </defs>
+                  <!-- Gradient accent bar -->
+                  <rect x="0" y="2" width="9" height="40" rx="2.5" fill="url(#capBar)"/>
+                  <!-- "Capita" wordmark -->
+                  <text x="18" y="32"
+                        font-family="'Gill Sans MT','Gill Sans','Trebuchet MS','Cabin',sans-serif"
+                        font-size="25"
+                        font-weight="700"
+                        fill="#0d1e40"
+                        letter-spacing="0.3">Capita</text>
+                </svg>
+                <span class="logo-card-label">Capita</span>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ SECTION NAV GRID ═══ -->
+      <div class="section-grid">
+
+        <!-- 1 · Technology Details -->
+        <a class="nav-card ac-blue" href="technology-details.html">
+          <div class="nav-num">1</div>
+          <div class="nav-head">
+            <div class="nav-icon ni-blue">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="7" y="7" width="10" height="10" rx="1"/><path d="M9 7V4M12 7V4M15 7V4M9 17v3M12 17v3M15 17v3M7 9H4M7 12H4M7 15H4M17 9h3M17 12h3M17 15h3"/>
+              </svg>
+            </div>
+            <div class="nav-head-text">
+              <span class="nav-tag nt-blue">Stack</span>
+              <div class="nav-title">Technology Details</div>
+            </div>
+          </div>
+          <div class="nav-desc">Frontend, backend, cloud hosting, CI/CD, security &amp; monitoring stack.</div>
+          <div class="nav-explore">Explore <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        </a>
+
+        <!-- 2 · SLA Details -->
+        <a class="nav-card ac-purple" href="sla-details.html">
+          <div class="nav-num">2</div>
+          <div class="nav-head">
+            <div class="nav-icon ni-purple">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+              </svg>
+            </div>
+            <div class="nav-head-text">
+              <span class="nav-tag nt-purple">Commitments</span>
+              <div class="nav-title">SLA Details</div>
+            </div>
+          </div>
+          <div class="nav-desc">Support windows, response &amp; resolution targets, and escalation paths.</div>
+          <div class="nav-explore">Explore <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        </a>
+
+        <!-- 3 · Type of Domains -->
+        <a class="nav-card ac-teal" href="type-of-domains.html">
+          <div class="nav-num">3</div>
+          <div class="nav-head">
+            <div class="nav-icon ni-teal">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="5" r="3"/><path d="M12 8v13M5 21a7 7 0 0 1 14 0"/>
+              </svg>
+            </div>
+            <div class="nav-head-text">
+              <span class="nav-tag nt-teal">Teams</span>
+              <div class="nav-title">Type of Domains</div>
+            </div>
+          </div>
+          <div class="nav-desc">Business, development, infrastructure, QA and support team domains.</div>
+          <div class="nav-explore">Explore <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        </a>
+
+        <!-- 4 · Hierarchy -->
+        <a class="nav-card ac-indigo" href="hierarchy.html">
+          <div class="nav-num">4</div>
+          <div class="nav-head">
+            <div class="nav-icon ni-indigo">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="2" x2="12" y2="6"/><circle cx="12" cy="12" r="4"/>
+                <line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="2" y1="12" x2="6" y2="12"/>
+                <line x1="12" y1="18" x2="12" y2="22"/><line x1="18" y1="12" x2="22" y2="12"/>
+              </svg>
+            </div>
+            <div class="nav-head-text">
+              <span class="nav-tag nt-indigo">Structure</span>
+              <div class="nav-title">Hierarchy</div>
+            </div>
+          </div>
+          <div class="nav-desc">Account leadership through team leads, engineers and operations members.</div>
+          <div class="nav-explore">Explore <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        </a>
+
+        <!-- 5 · Resources -->
+        <a class="nav-card ac-orange" href="resources.html">
+          <div class="nav-num">5</div>
+          <div class="nav-head">
+            <div class="nav-icon ni-orange">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+              </svg>
+            </div>
+            <div class="nav-head-text">
+              <span class="nav-tag nt-orange">Collaboration</span>
+              <div class="nav-title">Resources</div>
+            </div>
+          </div>
+          <div class="nav-desc">Slack channels, W3 pages, knowledge repositories and shared runbooks.</div>
+          <div class="nav-explore">Explore <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        </a>
+
+        <!-- 6 · Timesheet Details -->
+        <a class="nav-card ac-green" href="timesheet-details.html">
+          <div class="nav-num">6</div>
+          <div class="nav-head">
+            <div class="nav-icon ni-green">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+            </div>
+            <div class="nav-head-text">
+              <span class="nav-tag nt-green">Time Tracking</span>
+              <div class="nav-title">Timesheet Details</div>
+            </div>
+          </div>
+          <div class="nav-desc">Submission portals, cutoff dates, approvers and charge codes.</div>
+          <div class="nav-explore">Explore <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        </a>
+
+        <!-- 7 · Onboarding Documents -->
+        <a class="nav-card ac-rose" href="onboarding-documents.html">
+          <div class="nav-num">7</div>
+          <div class="nav-head">
+            <div class="nav-icon ni-rose">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+              </svg>
+            </div>
+            <div class="nav-head-text">
+              <span class="nav-tag nt-rose">Getting Started</span>
+              <div class="nav-title">Onboarding Documents</div>
+            </div>
+          </div>
+          <div class="nav-desc">Welcome guides, access requests, security training and process docs.</div>
+          <div class="nav-explore">Explore <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        </a>
+
+        <!-- 8 · About Account -->
+        <a class="nav-card ac-red" href="about-account.html">
+          <div class="nav-num">8</div>
+          <div class="nav-head">
+            <div class="nav-icon ni-red">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+              </svg>
+            </div>
+            <div class="nav-head-text">
+              <span class="nav-tag nt-red">Account</span>
+              <div class="nav-title">About Account Details</div>
+            </div>
+          </div>
+          <div class="nav-desc">Account background, business goals, stakeholders and delivery model.</div>
+          <div class="nav-explore">Explore <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        </a>
+
+      </div>
+
+      <div class="footer">
+        <span>Account Information Portal</span>
+        <span class="footer-dot"></span>
+        <span>IBM × Capita TVL</span>
+        <span class="footer-dot"></span>
+        <span>Internal Use Only</span>
+      </div>
+
+    </div>
+  <script>
+    // ── Auth guard ───────────────────────────────────────────────────────
+    (function () {
+      try {
+        const raw = sessionStorage.getItem('ibm_portal_user');
+        if (!raw) { window.location.replace('login.html'); return; }
+        const user = JSON.parse(raw);
+        // Populate topbar
+        const initials = user.name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0,2);
+        document.getElementById('userAvatar').textContent  = initials;
+        document.getElementById('userName').textContent    = user.name;
+        document.getElementById('userChip').style.display  = 'inline-flex';
+        document.getElementById('logoutBtn').style.display = 'inline-flex';
+      } catch (e) {
+        window.location.replace('login.html');
+      }
+    })();
+
+    function logout() {
+      try { sessionStorage.removeItem('ibm_portal_user'); } catch(e){}
+      window.location.replace('login.html');
+    }
+  </script>
+  </body>
+</html>

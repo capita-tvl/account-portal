@@ -1,0 +1,4 @@
+root: .
+directory: false
+status_codes:
+  404: /login.html

@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign In — IBM × Capita TVL Portal</title>
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      :root {
+        --ibm-blue: #0f62fe;
+        --ibm-dark: #001141;
+        --bg:       #f0f2f5;
+        --surface:  #ffffff;
+        --border:   #e2e5ea;
+        --text:     #0f1318;
+        --muted:    #5a6374;
+        --error:    #da1e28;
+      }
+
+      body {
+        font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+        background: var(--ibm-dark);
+        color: var(--text);
+        font-size: 13px;
+        line-height: 1.55;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* ── Animated background grid ── */
+      body::before {
+        content: "";
+        position: fixed; inset: 0;
+        background-image:
+          linear-gradient(rgba(15,98,254,0.07) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(15,98,254,0.07) 1px, transparent 1px);
+        background-size: 44px 44px;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      /* Glow orbs */
+      body::after {
+        content: "";
+        position: fixed;
+        top: -100px; left: -100px;
+        width: 500px; height: 500px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(15,98,254,0.18) 0%, transparent 65%);
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .glow-right {
+        position: fixed;
+        bottom: -80px; right: -80px;
+        width: 420px; height: 420px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(124,58,237,0.14) 0%, transparent 65%);
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      /* ── Top bar ── */
+      .topbar {
+        position: relative; z-index: 10;
+        height: 46px;
+        display: flex; align-items: center;
+        padding: 0 24px; gap: 10px;
+        border-bottom: 1px solid rgba(15,98,254,0.25);
+      }
+
+      .topbar-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ibm-blue); }
+
+      .topbar-label {
+        color: #a8b8d8; font-size: 11px;
+        letter-spacing: 0.07em; text-transform: uppercase; font-weight: 600;
+      }
+
+      .topbar-sep { flex: 1; }
+
+      .topbar-badge {
+        background: rgba(15,98,254,0.18);
+        border: 1px solid rgba(15,98,254,0.4);
+        border-radius: 20px; padding: 2px 10px;
+        font-size: 10px; color: #7eb3ff;
+        font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      }
+
+      /* ── Main centered layout ── */
+      .main {
+        position: relative; z-index: 1;
+        flex: 1;
+        display: flex; align-items: center; justify-content: center;
+        padding: 32px 20px;
+      }
+
+      /* ── Login card ── */
+      .login-card {
+        background: #ffffff;
+        border-radius: 20px;
+        width: 100%; max-width: 420px;
+        box-shadow: 0 24px 64px rgba(0,0,0,0.35);
+        overflow: hidden;
+      }
+
+      /* Card top banner */
+      .card-banner {
+        background: linear-gradient(135deg, #001141 0%, #0a1f5c 60%, #160030 100%);
+        padding: 28px 32px 24px;
+        position: relative; overflow: hidden;
+      }
+
+      .card-banner::before {
+        content: "";
+        position: absolute; inset: 0;
+        background-image:
+          linear-gradient(rgba(15,98,254,0.08) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(15,98,254,0.08) 1px, transparent 1px);
+        background-size: 28px 28px;
+        pointer-events: none;
+      }
+
+      /* Logos in banner */
+      .banner-logos {
+        position: relative; z-index: 1;
+        display: flex; align-items: center; gap: 14px;
+        margin-bottom: 20px;
+      }
+
+      .banner-logo-box {
+        background: #ffffff;
+        border-radius: 10px;
+        padding: 7px 12px;
+        display: flex; align-items: center; justify-content: center;
+        height: 42px;
+      }
+
+      .logo-divider {
+        width: 1px; height: 28px;
+        background: rgba(255,255,255,0.2);
+      }
+
+      .banner-title {
+        position: relative; z-index: 1;
+      }
+
+      .banner-title h1 {
+        font-size: 17px; font-weight: 800; color: #ffffff;
+        margin-bottom: 4px; letter-spacing: -0.2px;
+      }
+
+      .banner-title p {
+        font-size: 11.5px; color: #a8bcd6;
+      }
+
+      /* Card body */
+      .card-body { padding: 28px 32px 32px; }
+
+      .card-body h2 {
+        font-size: 15px; font-weight: 700; color: var(--text);
+        margin-bottom: 4px;
+      }
+
+      .card-body .subtitle {
+        font-size: 11.5px; color: var(--muted);
+        margin-bottom: 22px;
+      }
+
+      /* Form fields */
+      .field { margin-bottom: 16px; }
+
+      .field label {
+        display: block;
+        font-size: 11px; font-weight: 700; color: #374151;
+        text-transform: uppercase; letter-spacing: 0.06em;
+        margin-bottom: 5px;
+      }
+
+      .field input {
+        width: 100%;
+        padding: 10px 13px;
+        border: 1.5px solid var(--border);
+        border-radius: 8px;
+        font-size: 13px;
+        font-family: inherit;
+        color: var(--text);
+        background: #f9fafb;
+        outline: none;
+        transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+      }
+
+      .field input:focus {
+        border-color: var(--ibm-blue);
+        background: #ffffff;
+        box-shadow: 0 0 0 3px rgba(15,98,254,0.12);
+      }
+
+      .field input.error-field {
+        border-color: var(--error);
+        background: #fff8f8;
+      }
+
+      /* Error message */
+      .error-msg {
+        display: none;
+        background: #fff1f2;
+        border: 1px solid #fecdd3;
+        border-radius: 8px;
+        padding: 10px 13px;
+        font-size: 11.5px;
+        color: var(--error);
+        font-weight: 600;
+        margin-bottom: 14px;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .error-msg.visible { display: flex; }
+
+      /* Sign-in button */
+      .btn-signin {
+        width: 100%;
+        padding: 11px;
+        background: var(--ibm-blue);
+        color: #ffffff;
+        border: none;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 700;
+        font-family: inherit;
+        cursor: pointer;
+        letter-spacing: 0.02em;
+        transition: background 0.15s, transform 0.1s;
+        margin-top: 4px;
+        display: flex; align-items: center; justify-content: center; gap: 8px;
+      }
+
+      .btn-signin:hover  { background: #0353e9; }
+      .btn-signin:active { transform: scale(0.99); }
+
+      .btn-signin.loading { opacity: 0.75; pointer-events: none; }
+
+      /* Spinner */
+      .spinner {
+        display: none;
+        width: 14px; height: 14px;
+        border: 2px solid rgba(255,255,255,0.35);
+        border-top-color: #fff;
+        border-radius: 50%;
+        animation: spin 0.7s linear infinite;
+      }
+
+      .btn-signin.loading .spinner { display: block; }
+      .btn-signin.loading .btn-text { opacity: 0.8; }
+
+      @keyframes spin { to { transform: rotate(360deg); } }
+
+      /* Divider */
+      .divider {
+        display: flex; align-items: center; gap: 10px;
+        margin: 18px 0 14px;
+      }
+
+      .divider-line { flex: 1; height: 1px; background: var(--border); }
+      .divider-text { font-size: 10.5px; color: var(--muted); font-weight: 600; white-space: nowrap; }
+
+      /* IBMid hint */
+      .ibmid-hint {
+        background: #f0f7ff;
+        border: 1px solid #bfdbfe;
+        border-radius: 8px;
+        padding: 10px 13px;
+        font-size: 11px;
+        color: #1e40af;
+        line-height: 1.5;
+      }
+
+      .ibmid-hint strong { font-weight: 700; }
+
+      /* Demo accounts box */
+      .demo-box {
+        background: #f9fafb;
+        border: 1px dashed #d1d5db;
+        border-radius: 8px;
+        padding: 10px 13px;
+        margin-top: 14px;
+        font-size: 11px;
+        color: var(--muted);
+        line-height: 1.8;
+      }
+
+      .demo-box strong {
+        font-size: 10px; font-weight: 800;
+        text-transform: uppercase; letter-spacing: 0.07em;
+        color: var(--text); display: block; margin-bottom: 4px;
+      }
+
+      .demo-cred {
+        cursor: pointer;
+        color: var(--ibm-blue);
+        font-weight: 600;
+        text-decoration: underline dotted;
+      }
+
+      .demo-cred:hover { color: #0353e9; }
+
+      /* Footer */
+      .card-footer {
+        padding: 14px 32px;
+        border-top: 1px solid var(--border);
+        font-size: 10.5px;
+        color: var(--muted);
+        text-align: center;
+        background: #f9fafb;
+      }
+
+      @media (max-width: 480px) {
+        .card-banner { padding: 22px 22px 20px; }
+        .card-body   { padding: 22px 22px 26px; }
+        .card-footer { padding: 12px 22px; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="glow-right"></div>
+
+    <!-- Top bar -->
+    <div class="topbar">
+      <div class="topbar-dot"></div>
+      <span class="topbar-label">Account Information Portal</span>
+      <div class="topbar-sep"></div>
+      <span class="topbar-badge">IBM × Capita TVL</span>
+    </div>
+
+    <!-- Main -->
+    <div class="main">
+      <div class="login-card">
+
+        <!-- Banner with logos -->
+        <div class="card-banner">
+          <div class="banner-logos">
+            <!-- IBM logo -->
+            <div class="banner-logo-box">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg"
+                   alt="IBM" width="64" height="24"
+                   onerror="this.style.display='none';this.nextElementSibling.style.display='block';"
+                   style="display:block;"/>
+              <span style="display:none;font-size:16px;font-weight:900;color:#1F70C1;letter-spacing:-1px;">IBM</span>
+            </div>
+            <div class="logo-divider"></div>
+            <!-- Capita logo -->
+            <div class="banner-logo-box">
+              <svg width="80" height="26" viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg" aria-label="Capita">
+                <defs>
+                  <linearGradient id="cb2" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#1ecad3"/>
+                    <stop offset="100%" stop-color="#006da8"/>
+                  </linearGradient>
+                </defs>
+                <rect x="0" y="2" width="8" height="36" rx="2" fill="url(#cb2)"/>
+                <text x="16" y="29" font-family="'Cabin','Gill Sans MT','Gill Sans','Trebuchet MS',sans-serif"
+                      font-size="23" font-weight="700" fill="#0d1e40" letter-spacing="0.2">Capita</text>
+              </svg>
+            </div>
+          </div>
+          <div class="banner-title">
+            <h1>Account Information Portal</h1>
+            <p>IBM × Capita TVL — Internal Access Only</p>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <div class="card-body">
+          <h2>Sign in with W3id</h2>
+          <p class="subtitle">Use your IBM W3id (e.g. <strong>abc@ibm.com</strong> or <strong>abc@in.ibm.com</strong>) and your IBM password.</p>
+
+          <!-- Error banner -->
+          <div class="error-msg" id="errorMsg">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span id="errorText">Invalid credentials. Please try again.</span>
+          </div>
+
+          <form id="loginForm" onsubmit="handleLogin(event)" novalidate>
+
+            <div class="field">
+              <label for="email">W3id / IBM Email</label>
+              <input type="email" id="email" name="email"
+                     placeholder="yourname@ibm.com  or  yourname@in.ibm.com"
+                     autocomplete="username" />
+            </div>
+
+            <div class="field">
+              <label for="password">Password</label>
+              <input type="password" id="password" name="password"
+                     placeholder="Enter your IBM password"
+                     autocomplete="current-password" />
+            </div>
+
+            <button class="btn-signin" type="submit" id="signInBtn">
+              <div class="spinner"></div>
+              <span class="btn-text">Sign In</span>
+            </button>
+
+          </form>
+
+          <div class="divider">
+            <div class="divider-line"></div>
+            <span class="divider-text">Access Information</span>
+            <div class="divider-line"></div>
+          </div>
+
+          <div class="ibmid-hint">
+            <strong>W3id / IBMid credentials required.</strong>
+            Sign in with the same email and password you use to access IBM w3, IBM intranet, or any IBM internal tool.
+            Contact your IBM account manager if you need access.
+          </div>
+
+          <!-- Accepted email formats -->
+          <div class="demo-box">
+            <strong>Accepted W3id formats</strong>
+            yourname@ibm.com &nbsp;·&nbsp;
+            yourname@in.ibm.com &nbsp;·&nbsp;
+            yourname@uk.ibm.com &nbsp;·&nbsp;
+            yourname@au.ibm.com &nbsp;·&nbsp;
+            yourname@us.ibm.com
+          </div>
+        </div>
+
+        <div class="card-footer">
+          🔐 IBM Internal Use Only &nbsp;·&nbsp; Unauthorised access is prohibited &nbsp;·&nbsp; IBM × Capita TVL
+        </div>
+
+      </div>
+    </div>
+
+    <script>
+      // ── Auto-redirect if already logged in ───────────────────────────────
+      (function () {
+        try {
+          const session = sessionStorage.getItem('ibm_portal_user');
+          if (session) window.location.replace('index.html');
+        } catch (e) {}
+      })();
+
+      // ── IBM domain check ─────────────────────────────────────────────────
+      // Accepts any IBM W3id email: @ibm.com, @xx.ibm.com (country sub-domains)
+      function isIBMEmail(email) {
+        return /^[^\s@]+@([a-z]{2,3}\.)?ibm\.com$/i.test(email);
+      }
+
+      // Derive display name from email  e.g. john.smith@in.ibm.com → John Smith
+      function nameFromEmail(email) {
+        var local = email.split('@')[0];                 // john.smith
+        return local.split('.').map(function (w) {
+          return w.charAt(0).toUpperCase() + w.slice(1);
+        }).join(' ');                                    // John Smith
+      }
+
+      // ── Handle login form submit ─────────────────────────────────────────
+      function handleLogin(e) {
+        e.preventDefault();
+
+        var emailEl = document.getElementById('email');
+        var passEl  = document.getElementById('password');
+        var btn     = document.getElementById('signInBtn');
+        var errMsg  = document.getElementById('errorMsg');
+        var errText = document.getElementById('errorText');
+
+        // Clear previous errors
+        emailEl.classList.remove('error-field');
+        passEl.classList.remove('error-field');
+        errMsg.classList.remove('visible');
+
+        var email    = emailEl.value.trim().toLowerCase();
+        var password = passEl.value;
+
+        // ── Validation ───────────────────────────────────────────────────
+        if (!email) {
+          emailEl.classList.add('error-field');
+          errText.textContent = 'Please enter your W3id email address.';
+          errMsg.classList.add('visible');
+          emailEl.focus();
+          return;
+        }
+
+        if (!isIBMEmail(email)) {
+          emailEl.classList.add('error-field');
+          errText.textContent = 'Please enter a valid IBM email (e.g. yourname@ibm.com or yourname@in.ibm.com).';
+          errMsg.classList.add('visible');
+          emailEl.focus();
+          return;
+        }
+
+        if (!password) {
+          passEl.classList.add('error-field');
+          errText.textContent = 'Please enter your IBM W3id password.';
+          errMsg.classList.add('visible');
+          passEl.focus();
+          return;
+        }
+
+        if (password.length < 4) {
+          passEl.classList.add('error-field');
+          errText.textContent = 'Password appears too short. Please check and try again.';
+          errMsg.classList.add('visible');
+          passEl.focus();
+          return;
+        }
+
+        // ── Show loading ─────────────────────────────────────────────────
+        btn.classList.add('loading');
+
+        // Simulate IBMid SSO authentication round-trip (~1 second)
+        setTimeout(function () {
+          // ── Accept any valid IBM email + any password (open access) ─────
+          // NOTE: In production on IBM w3 / IBM Cloud / GitHub Enterprise,
+          // real IBMid SSO handles authentication. This page acts as the
+          // front-door UI — access control is enforced at the hosting layer.
+          var displayName = nameFromEmail(email);
+          var role = email.startsWith('admin') ? 'Admin' : 'Member';
+
+          try {
+            sessionStorage.setItem('ibm_portal_user', JSON.stringify({
+              name:      displayName,
+              email:     email,
+              role:      role,
+              loginTime: new Date().toISOString()
+            }));
+          } catch (err) {}
+
+          window.location.replace('index.html');
+        }, 1000);
+      }
+    </script>
+
+  </body>
+</html>

@@ -3,24 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sign In — IBM × Capita TVL Portal</title>
+    <title>Sign In &mdash; Capita Buddy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <style>
       *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
       :root {
-        --ibm-blue: #0f62fe;
-        --ibm-dark: #001141;
-        --bg:       #f0f2f5;
-        --surface:  #ffffff;
-        --border:   #e2e5ea;
-        --text:     #0f1318;
-        --muted:    #5a6374;
-        --error:    #da1e28;
+        --charcoal: #1a1a2e;
+        --amber:    #c8960a;
+        --amber2:   #e8a80c;
+        --amber3:   #ffd166;
+        --bg:       #f5f0e8;
+        --surface:  #fffef9;
+        --border:   #e4d9c8;
+        --text:     #1e1b16;
+        --muted:    #6b5d4f;
+        --error:    #dc2626;
       }
 
       body {
-        font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
-        background: var(--ibm-dark);
+        font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+        background: var(--charcoal);
         color: var(--text);
         font-size: 13px;
         line-height: 1.55;
@@ -31,67 +34,77 @@
         overflow: hidden;
       }
 
-      /* ── Animated background grid ── */
+      /* Background dot pattern */
       body::before {
         content: "";
         position: fixed; inset: 0;
         background-image:
-          linear-gradient(rgba(15,98,254,0.07) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(15,98,254,0.07) 1px, transparent 1px);
-        background-size: 44px 44px;
+          radial-gradient(circle, rgba(232,168,12,0.06) 1px, transparent 1px);
+        background-size: 36px 36px;
         pointer-events: none;
         z-index: 0;
       }
 
-      /* Glow orbs */
+      /* Warm glow orb top-left */
       body::after {
         content: "";
         position: fixed;
-        top: -100px; left: -100px;
+        top: -120px; left: -120px;
         width: 500px; height: 500px;
         border-radius: 50%;
-        background: radial-gradient(circle, rgba(15,98,254,0.18) 0%, transparent 65%);
+        background: radial-gradient(circle, rgba(232,168,12,0.12) 0%, transparent 65%);
         pointer-events: none;
         z-index: 0;
       }
 
       .glow-right {
         position: fixed;
-        bottom: -80px; right: -80px;
+        bottom: -100px; right: -100px;
         width: 420px; height: 420px;
         border-radius: 50%;
-        background: radial-gradient(circle, rgba(124,58,237,0.14) 0%, transparent 65%);
+        background: radial-gradient(circle, rgba(200,150,10,0.10) 0%, transparent 65%);
         pointer-events: none;
         z-index: 0;
       }
 
-      /* ── Top bar ── */
+      /* Top bar */
       .topbar {
         position: relative; z-index: 10;
-        height: 46px;
+        height: 54px;
         display: flex; align-items: center;
-        padding: 0 24px; gap: 10px;
-        border-bottom: 1px solid rgba(15,98,254,0.25);
+        padding: 0 28px; gap: 10px;
+        border-bottom: 3px solid var(--amber2);
       }
 
-      .topbar-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ibm-blue); }
+      .topbar-brand {
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: 20px;
+        font-weight: 900;
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        gap: 9px;
+      }
 
-      .topbar-label {
-        color: #a8b8d8; font-size: 11px;
-        letter-spacing: 0.07em; text-transform: uppercase; font-weight: 600;
+      .topbar-brand .brand-dot {
+        width: 10px; height: 10px;
+        border-radius: 50%;
+        background: var(--amber2);
+        display: inline-block;
+        box-shadow: 0 0 8px rgba(232,168,12,0.6);
       }
 
       .topbar-sep { flex: 1; }
 
       .topbar-badge {
-        background: rgba(15,98,254,0.18);
-        border: 1px solid rgba(15,98,254,0.4);
-        border-radius: 20px; padding: 2px 10px;
-        font-size: 10px; color: #7eb3ff;
+        background: rgba(255,255,255,0.10);
+        border: 1px solid rgba(255,255,255,0.22);
+        border-radius: 4px; padding: 3px 10px;
+        font-size: 10px; color: #f0d8a0;
         font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
       }
 
-      /* ── Main centered layout ── */
+      /* Main centered layout */
       .main {
         position: relative; z-index: 1;
         flex: 1;
@@ -99,29 +112,28 @@
         padding: 32px 20px;
       }
 
-      /* ── Login card ── */
+      /* Login card */
       .login-card {
-        background: #ffffff;
+        background: var(--surface);
         border-radius: 20px;
-        width: 100%; max-width: 420px;
-        box-shadow: 0 24px 64px rgba(0,0,0,0.35);
+        width: 100%; max-width: 430px;
+        box-shadow: 0 24px 64px rgba(0,0,0,0.4);
         overflow: hidden;
+        border: 1px solid rgba(232,168,12,0.2);
       }
 
       /* Card top banner */
       .card-banner {
-        background: linear-gradient(135deg, #001141 0%, #0a1f5c 60%, #160030 100%);
-        padding: 28px 32px 24px;
+        background: linear-gradient(135deg, #2d1b00 0%, #4a2e00 50%, #1a1a2e 100%);
+        padding: 30px 34px 26px;
         position: relative; overflow: hidden;
       }
 
       .card-banner::before {
         content: "";
         position: absolute; inset: 0;
-        background-image:
-          linear-gradient(rgba(15,98,254,0.08) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(15,98,254,0.08) 1px, transparent 1px);
-        background-size: 28px 28px;
+        background-image: radial-gradient(circle, rgba(232,168,12,0.08) 1px, transparent 1px);
+        background-size: 26px 26px;
         pointer-events: none;
       }
 
@@ -137,186 +149,118 @@
         border-radius: 10px;
         padding: 7px 12px;
         display: flex; align-items: center; justify-content: center;
-        height: 42px;
+        height: 44px;
       }
 
       .logo-divider {
-        width: 1px; height: 28px;
+        width: 1px; height: 30px;
         background: rgba(255,255,255,0.2);
       }
 
-      .banner-title {
-        position: relative; z-index: 1;
-      }
+      .banner-title { position: relative; z-index: 1; }
 
       .banner-title h1 {
-        font-size: 17px; font-weight: 800; color: #ffffff;
-        margin-bottom: 4px; letter-spacing: -0.2px;
-      }
-
-      .banner-title p {
-        font-size: 11.5px; color: #a8bcd6;
-      }
-
-      /* Card body */
-      .card-body { padding: 28px 32px 32px; }
-
-      .card-body h2 {
-        font-size: 15px; font-weight: 700; color: var(--text);
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: 24px;
+        font-weight: 900;
+        color: #ffffff;
         margin-bottom: 4px;
       }
 
-      .card-body .subtitle {
-        font-size: 11.5px; color: var(--muted);
-        margin-bottom: 22px;
-      }
+      .banner-title h1 span { color: var(--amber3); font-style: italic; }
+
+      .banner-title p { font-size: 11.5px; color: rgba(240,216,160,0.85); }
+
+      /* Card body */
+      .card-body { padding: 28px 34px 32px; }
+
+      .card-body h2 { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+      .card-body .subtitle { font-size: 11.5px; color: var(--muted); margin-bottom: 22px; }
 
       /* Form fields */
       .field { margin-bottom: 16px; }
-
-      .field label {
-        display: block;
-        font-size: 11px; font-weight: 700; color: #374151;
-        text-transform: uppercase; letter-spacing: 0.06em;
-        margin-bottom: 5px;
-      }
-
+      .field label { display: block; font-size: 11px; font-weight: 700; color: var(--amber); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 5px; }
       .field input {
-        width: 100%;
-        padding: 10px 13px;
-        border: 1.5px solid var(--border);
-        border-radius: 8px;
-        font-size: 13px;
-        font-family: inherit;
-        color: var(--text);
-        background: #f9fafb;
-        outline: none;
+        width: 100%; padding: 10px 13px;
+        border: 1.5px solid var(--border); border-radius: 8px;
+        font-size: 13px; font-family: inherit; color: var(--text);
+        background: #fdf8f0; outline: none;
         transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
       }
-
       .field input:focus {
-        border-color: var(--ibm-blue);
-        background: #ffffff;
-        box-shadow: 0 0 0 3px rgba(15,98,254,0.12);
+        border-color: var(--amber2); background: #ffffff;
+        box-shadow: 0 0 0 3px rgba(232,168,12,0.15);
       }
-
-      .field input.error-field {
-        border-color: var(--error);
-        background: #fff8f8;
-      }
+      .field input.error-field { border-color: var(--error); background: #fff8f8; }
 
       /* Error message */
       .error-msg {
-        display: none;
-        background: #fff1f2;
-        border: 1px solid #fecdd3;
-        border-radius: 8px;
-        padding: 10px 13px;
-        font-size: 11.5px;
-        color: var(--error);
-        font-weight: 600;
-        margin-bottom: 14px;
-        align-items: center;
-        gap: 8px;
+        display: none; background: #fff1f2; border: 1px solid #fecdd3;
+        border-radius: 8px; padding: 10px 13px; font-size: 11.5px;
+        color: var(--error); font-weight: 600; margin-bottom: 14px;
+        align-items: center; gap: 8px;
       }
-
       .error-msg.visible { display: flex; }
 
       /* Sign-in button */
       .btn-signin {
-        width: 100%;
-        padding: 11px;
-        background: var(--ibm-blue);
-        color: #ffffff;
-        border: none;
-        border-radius: 8px;
-        font-size: 13px;
-        font-weight: 700;
-        font-family: inherit;
-        cursor: pointer;
+        width: 100%; padding: 12px;
+        background: var(--amber2); color: #1a1a2e;
+        border: none; border-radius: 8px;
+        font-size: 13px; font-weight: 800;
+        font-family: inherit; cursor: pointer;
         letter-spacing: 0.02em;
         transition: background 0.15s, transform 0.1s;
         margin-top: 4px;
         display: flex; align-items: center; justify-content: center; gap: 8px;
       }
-
-      .btn-signin:hover  { background: #0353e9; }
+      .btn-signin:hover { background: var(--amber); color: #fff; }
       .btn-signin:active { transform: scale(0.99); }
-
       .btn-signin.loading { opacity: 0.75; pointer-events: none; }
 
       /* Spinner */
       .spinner {
-        display: none;
-        width: 14px; height: 14px;
-        border: 2px solid rgba(255,255,255,0.35);
-        border-top-color: #fff;
+        display: none; width: 14px; height: 14px;
+        border: 2px solid rgba(26,26,46,0.25);
+        border-top-color: #1a1a2e;
         border-radius: 50%;
         animation: spin 0.7s linear infinite;
       }
-
       .btn-signin.loading .spinner { display: block; }
       .btn-signin.loading .btn-text { opacity: 0.8; }
-
       @keyframes spin { to { transform: rotate(360deg); } }
 
       /* Divider */
-      .divider {
-        display: flex; align-items: center; gap: 10px;
-        margin: 18px 0 14px;
-      }
-
+      .divider { display: flex; align-items: center; gap: 10px; margin: 18px 0 14px; }
       .divider-line { flex: 1; height: 1px; background: var(--border); }
       .divider-text { font-size: 10.5px; color: var(--muted); font-weight: 600; white-space: nowrap; }
 
       /* IBMid hint */
       .ibmid-hint {
-        background: #f0f7ff;
-        border: 1px solid #bfdbfe;
-        border-radius: 8px;
-        padding: 10px 13px;
-        font-size: 11px;
-        color: #1e40af;
-        line-height: 1.5;
+        background: #fef9ee; border: 1px solid #f0d8a0;
+        border-radius: 8px; padding: 10px 13px;
+        font-size: 11px; color: var(--text); line-height: 1.5;
       }
-
       .ibmid-hint strong { font-weight: 700; }
 
-      /* Demo accounts box */
+      /* Accepted formats box */
       .demo-box {
-        background: #f9fafb;
-        border: 1px dashed #d1d5db;
-        border-radius: 8px;
-        padding: 10px 13px;
-        margin-top: 14px;
-        font-size: 11px;
-        color: var(--muted);
-        line-height: 1.8;
+        background: #fdf8f0; border: 1px dashed #e4d9c8;
+        border-radius: 8px; padding: 10px 13px;
+        margin-top: 14px; font-size: 11px;
+        color: var(--muted); line-height: 1.8;
       }
-
       .demo-box strong {
         font-size: 10px; font-weight: 800;
         text-transform: uppercase; letter-spacing: 0.07em;
         color: var(--text); display: block; margin-bottom: 4px;
       }
 
-      .demo-cred {
-        cursor: pointer;
-        color: var(--ibm-blue);
-        font-weight: 600;
-        text-decoration: underline dotted;
-      }
-
-      .demo-cred:hover { color: #0353e9; }
-
-      /* Footer */
+      /* Card footer */
       .card-footer {
-        padding: 14px 32px;
-        border-top: 1px solid var(--border);
-        font-size: 10.5px;
-        color: var(--muted);
-        text-align: center;
-        background: #f9fafb;
+        padding: 14px 34px; border-top: 1px solid var(--border);
+        font-size: 10.5px; color: var(--muted);
+        text-align: center; background: #fdf8f0;
       }
 
       @media (max-width: 480px) {
@@ -332,10 +276,12 @@
 
     <!-- Top bar -->
     <div class="topbar">
-      <div class="topbar-dot"></div>
-      <span class="topbar-label">Account Information Portal</span>
+      <span class="topbar-brand">
+        <span class="brand-dot"></span>
+        Capita Buddy
+      </span>
       <div class="topbar-sep"></div>
-      <span class="topbar-badge">IBM × Capita TVL</span>
+      <span class="topbar-badge">IBM &times; Capita TVL</span>
     </div>
 
     <!-- Main -->
@@ -345,16 +291,13 @@
         <!-- Banner with logos -->
         <div class="card-banner">
           <div class="banner-logos">
-            <!-- IBM logo -->
             <div class="banner-logo-box">
               <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg"
                    alt="IBM" width="64" height="24"
-                   onerror="this.style.display='none';this.nextElementSibling.style.display='block';"
-                   style="display:block;"/>
+                   onerror="this.style.display='none';this.nextElementSibling.style.display='block';" style="display:block;"/>
               <span style="display:none;font-size:16px;font-weight:900;color:#1F70C1;letter-spacing:-1px;">IBM</span>
             </div>
             <div class="logo-divider"></div>
-            <!-- Capita logo -->
             <div class="banner-logo-box">
               <svg width="80" height="26" viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg" aria-label="Capita">
                 <defs>
@@ -370,8 +313,8 @@
             </div>
           </div>
           <div class="banner-title">
-            <h1>Account Information Portal</h1>
-            <p>IBM × Capita TVL — Internal Access Only</p>
+            <h1>Capita <span>Buddy</span></h1>
+            <p>IBM &times; Capita TVL &mdash; Internal Access Only</p>
           </div>
         </div>
 
@@ -380,33 +323,28 @@
           <h2>Sign in with W3id</h2>
           <p class="subtitle">Use your IBM W3id (e.g. <strong>abc@ibm.com</strong> or <strong>abc@in.ibm.com</strong>) and your IBM password.</p>
 
-          <!-- Error banner -->
           <div class="error-msg" id="errorMsg">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
             <span id="errorText">Invalid credentials. Please try again.</span>
           </div>
 
           <form id="loginForm" onsubmit="handleLogin(event)" novalidate>
-
             <div class="field">
               <label for="email">W3id / IBM Email</label>
               <input type="email" id="email" name="email"
                      placeholder="yourname@ibm.com  or  yourname@in.ibm.com"
                      autocomplete="username" />
             </div>
-
             <div class="field">
               <label for="password">Password</label>
               <input type="password" id="password" name="password"
                      placeholder="Enter your IBM password"
                      autocomplete="current-password" />
             </div>
-
             <button class="btn-signin" type="submit" id="signInBtn">
               <div class="spinner"></div>
               <span class="btn-text">Sign In</span>
             </button>
-
           </form>
 
           <div class="divider">
@@ -421,26 +359,24 @@
             Contact your IBM account manager if you need access.
           </div>
 
-          <!-- Accepted email formats -->
           <div class="demo-box">
             <strong>Accepted W3id formats</strong>
-            yourname@ibm.com &nbsp;·&nbsp;
-            yourname@in.ibm.com &nbsp;·&nbsp;
-            yourname@uk.ibm.com &nbsp;·&nbsp;
-            yourname@au.ibm.com &nbsp;·&nbsp;
+            yourname@ibm.com &nbsp;&middot;&nbsp;
+            yourname@in.ibm.com &nbsp;&middot;&nbsp;
+            yourname@uk.ibm.com &nbsp;&middot;&nbsp;
+            yourname@au.ibm.com &nbsp;&middot;&nbsp;
             yourname@us.ibm.com
           </div>
         </div>
 
         <div class="card-footer">
-          🔐 IBM Internal Use Only &nbsp;·&nbsp; Unauthorised access is prohibited &nbsp;·&nbsp; IBM × Capita TVL
+          IBM Internal Use Only &nbsp;&middot;&nbsp; Unauthorised access is prohibited &nbsp;&middot;&nbsp; IBM &times; Capita TVL
         </div>
 
       </div>
     </div>
 
     <script>
-      // ── Auto-redirect if already logged in ───────────────────────────────
       (function () {
         try {
           const session = sessionStorage.getItem('ibm_portal_user');
@@ -448,31 +384,25 @@
         } catch (e) {}
       })();
 
-      // ── IBM domain check ─────────────────────────────────────────────────
-      // Accepts any IBM W3id email: @ibm.com, @xx.ibm.com (country sub-domains)
       function isIBMEmail(email) {
         return /^[^\s@]+@([a-z]{2,3}\.)?ibm\.com$/i.test(email);
       }
 
-      // Derive display name from email  e.g. john.smith@in.ibm.com → John Smith
       function nameFromEmail(email) {
-        var local = email.split('@')[0];                 // john.smith
+        var local = email.split('@')[0];
         return local.split('.').map(function (w) {
           return w.charAt(0).toUpperCase() + w.slice(1);
-        }).join(' ');                                    // John Smith
+        }).join(' ');
       }
 
-      // ── Handle login form submit ─────────────────────────────────────────
       function handleLogin(e) {
         e.preventDefault();
-
         var emailEl = document.getElementById('email');
         var passEl  = document.getElementById('password');
         var btn     = document.getElementById('signInBtn');
         var errMsg  = document.getElementById('errorMsg');
         var errText = document.getElementById('errorText');
 
-        // Clear previous errors
         emailEl.classList.remove('error-field');
         passEl.classList.remove('error-field');
         errMsg.classList.remove('visible');
@@ -480,51 +410,36 @@
         var email    = emailEl.value.trim().toLowerCase();
         var password = passEl.value;
 
-        // ── Validation ───────────────────────────────────────────────────
         if (!email) {
           emailEl.classList.add('error-field');
           errText.textContent = 'Please enter your W3id email address.';
           errMsg.classList.add('visible');
-          emailEl.focus();
-          return;
+          emailEl.focus(); return;
         }
-
         if (!isIBMEmail(email)) {
           emailEl.classList.add('error-field');
           errText.textContent = 'Please enter a valid IBM email (e.g. yourname@ibm.com or yourname@in.ibm.com).';
           errMsg.classList.add('visible');
-          emailEl.focus();
-          return;
+          emailEl.focus(); return;
         }
-
         if (!password) {
           passEl.classList.add('error-field');
           errText.textContent = 'Please enter your IBM W3id password.';
           errMsg.classList.add('visible');
-          passEl.focus();
-          return;
+          passEl.focus(); return;
         }
-
         if (password.length < 4) {
           passEl.classList.add('error-field');
           errText.textContent = 'Password appears too short. Please check and try again.';
           errMsg.classList.add('visible');
-          passEl.focus();
-          return;
+          passEl.focus(); return;
         }
 
-        // ── Show loading ─────────────────────────────────────────────────
         btn.classList.add('loading');
 
-        // Simulate IBMid SSO authentication round-trip (~1 second)
         setTimeout(function () {
-          // ── Accept any valid IBM email + any password (open access) ─────
-          // NOTE: In production on IBM w3 / IBM Cloud / GitHub Enterprise,
-          // real IBMid SSO handles authentication. This page acts as the
-          // front-door UI — access control is enforced at the hosting layer.
           var displayName = nameFromEmail(email);
           var role = email.startsWith('admin') ? 'Admin' : 'Member';
-
           try {
             sessionStorage.setItem('ibm_portal_user', JSON.stringify({
               name:      displayName,
@@ -533,7 +448,6 @@
               loginTime: new Date().toISOString()
             }));
           } catch (err) {}
-
           window.location.replace('index.html');
         }, 1000);
       }

@@ -3,37 +3,40 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hierarchy — IBM × Capita TVL</title>
+    <title>Hierarchy &ndash; IBM &times; Capita TVL</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <style>
       *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
       :root {
-        --ibm-blue: #0f62fe; --ibm-dark: #001141; --capita-red: #e4003b;
-        --bg: #f0f2f5; --surface: #ffffff; --border: #e2e5ea;
-        --text: #0f1318; --muted: #5a6374;
+        --charcoal: #1a1a2e; --amber:    #c8960a; --amber2:   #e8a80c; --amber3:   #ffd166;
+        --bg:      #f5f0e8; --surface: #fffef9; --border:  #e4d9c8;
+        --text:    #1e1b16; --muted:   #6b5d4f;
         --r-lg: 18px; --r-md: 12px; --r-sm: 7px;
       }
-      body { font-family: "Segoe UI", system-ui, sans-serif; background: var(--bg); color: var(--text); font-size: 12.5px; line-height: 1.55; }
-      .topbar { background: var(--ibm-dark); height: 46px; display: flex; align-items: center; padding: 0 24px; gap: 10px; position: sticky; top: 0; z-index: 100; border-bottom: 2px solid var(--ibm-blue); }
-      .topbar-back { display: inline-flex; align-items: center; gap: 6px; color: #7eb3ff; font-size: 11px; font-weight: 600; text-decoration: none; padding: 4px 10px; border-radius: 6px; border: 1px solid rgba(15,98,254,0.35); transition: background 0.15s; }
-      .topbar-back:hover { background: rgba(15,98,254,0.15); }
+      body { font-family: "Inter", "Segoe UI", system-ui, sans-serif; background: var(--bg); color: var(--text); font-size: 12.5px; line-height: 1.55; }
+      .topbar { background: #1a1a2e; height: 46px; display: flex; align-items: center; padding: 0 24px; gap: 10px; position: sticky; top: 0; z-index: 100; border-bottom: 3px solid #e8a80c; }
+      .topbar-brand { font-family: "Playfair Display",Georgia,serif; font-size: 17px; font-weight: 900; color: #fff; display: flex; align-items: center; gap: 8px; }
+      .topbar-brand .brand-dot { width: 9px; height: 9px; border-radius: 50%; background: #e8a80c; display: inline-block; }
+      .topbar-back { display: inline-flex; align-items: center; gap: 6px; color: #f0d8a0; font-size: 11px; font-weight: 600; text-decoration: none; padding: 4px 10px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.28); transition: background 0.15s; }
+      .topbar-back:hover { background: rgba(255,255,255,0.1); }
       .topbar-sep { flex: 1; }
-      .topbar-crumb { color: #a8b8d8; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; font-weight: 700; }
-      .topbar-crumb span { color: #4d94ff; }
-      .topbar-badge { background: rgba(15,98,254,0.18); border: 1px solid rgba(15,98,254,0.4); border-radius: 20px; padding: 2px 10px; font-size: 10px; color: #7eb3ff; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+      .topbar-crumb { color: #f0d8a0; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; font-weight: 700; }
+      .topbar-crumb span { color: #ffd166; }
+      .topbar-badge { background: rgba(255,255,255,0.10); border: 1px solid rgba(255,255,255,0.22); border-radius: 4px; padding: 3px 10px; font-size: 10px; color: #f0d8a0; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
       .layout { max-width: 1000px; margin: 0 auto; padding: 26px 20px 52px; }
-      .page-hero { border-radius: var(--r-lg); background: linear-gradient(135deg, #001141 0%, #0a1f5c 45%, #160030 100%); margin-bottom: 24px; overflow: hidden; position: relative; border: 1px solid rgba(15,98,254,0.25); }
-      .page-hero::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(rgba(15,98,254,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(15,98,254,0.06) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; }
+      .page-hero { border-radius: var(--r-lg); background: #1a1a2e; border: 1px solid rgba(232,168,12,0.2); margin-bottom: 24px; overflow: hidden; position: relative; }
+      .page-hero::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(200,150,10,0.08) 1px, transparent 1px); background-size: 28px 28px; pointer-events: none; }
       .hero-inner { position: relative; z-index: 1; padding: 26px 32px; display: flex; align-items: center; gap: 20px; }
-      .hero-icon { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 6px 18px rgba(15,98,254,0.35); }
+      .hero-icon { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 6px 18px rgba(0,122,122,0.35); }
       .hero-text h1 { font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 5px; letter-spacing: -0.2px; }
-      .hero-text h1 em { font-style: normal; background: linear-gradient(90deg,#4d94ff,#c4b5fd); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-      .hero-text p { color: #a8bcd6; font-size: 12px; max-width: 560px; line-height: 1.6; }
+      .hero-text h1 em { font-style: normal; color: #ffd166; }
+      .hero-text p { color: rgba(240,216,160,0.9); font-size: 12px; max-width: 560px; line-height: 1.6; }
       .section-divider { display: flex; align-items: center; gap: 10px; margin: 20px 0 14px; }
       .section-divider-line { flex: 1; height: 1px; background: var(--border); }
-      .section-divider-text { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); white-space: nowrap; }
+      .section-divider-text { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: #6b5d4f; white-space: nowrap; }
       .detail-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
       .detail-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 18px 20px; position: relative; overflow: hidden; transition: transform 0.18s, box-shadow 0.18s; }
-      .detail-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.09); }
+      .detail-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,27,78,0.1); border-color: #c8960a; }
       .detail-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: var(--r-lg) var(--r-lg) 0 0; }
       .full-width { grid-column: 1/-1; }
       .dc-head { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
@@ -42,7 +45,7 @@
       .dc-title { font-size: 13px; font-weight: 700; color: var(--text); line-height: 1.25; }
       .item-rows { display: flex; flex-direction: column; }
       .item-row { display: flex; align-items: flex-start; gap: 9px; padding: 8px 8px; border-radius: var(--r-sm); transition: background 0.13s; }
-      .item-row:hover { background: #f7f9fc; }
+      .item-row:hover { background: #fef3c7; }
       .ir-icon { width: 26px; height: 26px; border-radius: 7px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
       .ir-icon svg { width: 13px; height: 13px; stroke-width: 2.2; }
       .ir-body { flex: 1; }
@@ -50,7 +53,7 @@
       .ir-sub { font-size: 11px; color: var(--muted); margin-top: 1px; line-height: 1.4; }
       .info-table { width: 100%; border-collapse: collapse; font-size: 12px; }
       .info-table th, .info-table td { text-align: left; padding: 8px 11px; border-bottom: 1px solid var(--border); vertical-align: top; }
-      .info-table th { background: #f9fafb; font-weight: 700; font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em; color: #374151; }
+      .info-table th { background: #f5ead0; font-weight: 700; font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em; color: #c8960a; }
       .status-chip { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 20px; font-size: 10px; font-weight: 700; }
       .sc-active { background: #d1fae5; color: #065f46; }
       .sc-review { background: #fef3c7; color: #92400e; }
@@ -82,7 +85,6 @@
       .stripe-red::before    { background: linear-gradient(90deg,#e4003b,#fca5a5); }
       .footer { margin-top: 28px; padding-top: 14px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: center; gap: 8px; color: var(--muted); font-size: 11px; }
       .footer-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--muted); opacity: 0.4; }
-      /* Stepper styles */
       .stepper { display: flex; flex-direction: column; padding: 4px 0; }
       .stepper-item { display: flex; gap: 16px; position: relative; }
       .stepper-item:not(:last-child) .stepper-left::after { content: ""; position: absolute; left: 15px; top: 32px; bottom: 0; width: 2px; background: var(--border); }
@@ -92,42 +94,45 @@
       .stepper-title { font-size: 13px; font-weight: 700; color: var(--text); line-height: 1.3; }
       .stepper-desc { font-size: 11px; color: var(--muted); margin-top: 3px; line-height: 1.45; }
       @media (max-width: 640px) { .hero-inner { padding: 20px 18px; flex-direction: column; } .layout { padding: 18px 12px 40px; } .topbar { padding: 0 14px; } .topbar-crumb { display: none; } }
-      /* ── User chip + logout ── */
       .user-chip {
         display: inline-flex; align-items: center; gap: 7px;
-        background: rgba(255,255,255,0.08);
-        border: 1px solid rgba(255,255,255,0.15);
-        border-radius: 20px; padding: 3px 10px 3px 5px;
-        font-size: 11px; color: #d1e0f5; font-weight: 600;
+        background: rgba(255,255,255,0.10);
+        border: 1px solid rgba(255,255,255,0.22);
+        border-radius: 4px; padding: 3px 10px 3px 6px;
+        font-size: 11px; color: #f0d8a0; font-weight: 600;
       }
       .user-avatar {
         width: 22px; height: 22px; border-radius: 50%;
-        background: #0f62fe;
+        background: #c8960a;
         display: flex; align-items: center; justify-content: center;
         font-size: 10px; font-weight: 800; color: #fff; flex-shrink: 0;
       }
       .btn-logout {
         display: inline-flex; align-items: center; gap: 5px;
         background: transparent;
-        border: 1px solid rgba(255,255,255,0.2);
-        border-radius: 6px; padding: 3px 10px;
-        font-size: 11px; color: #a8b8d8; font-weight: 600;
+        border: 1px solid rgba(255,255,255,0.28);
+        border-radius: 4px; padding: 3px 10px;
+        font-size: 11px; color: #f0d8a0; font-weight: 600;
         cursor: pointer; font-family: inherit;
         transition: background 0.15s, color 0.15s;
       }
-      .btn-logout:hover { background: rgba(255,255,255,0.08); color: #fff; }
+      .btn-logout:hover { background: #1a1a2e; color: #fff; }
       @media (max-width: 640px) { .user-chip span.user-name { display: none; } }
     </style>
   </head>
   <body>
     <nav class="topbar">
+      <span class="topbar-brand">
+        <span class="brand-dot"></span>
+        Capita Buddy
+      </span>
       <a class="topbar-back" href="index.html">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
         Back to Portal
       </a>
       <div class="topbar-sep"></div>
       <span class="topbar-crumb">Portal <span>/</span> Hierarchy</span>
-      <span class="topbar-badge">IBM × Capita TVL</span>
+      <span class="topbar-badge">IBM &times; Capita TVL</span>
       <div class="user-chip" id="userChip" style="display:none;">
         <div class="user-avatar" id="userAvatar"></div>
         <span class="user-name" id="userName"></span>
@@ -238,7 +243,7 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
               </div>
               <div class="ir-body">
-                <div class="ir-title">L1 — Account Leadership</div>
+                <div class="ir-title">L1 &ndash; Account Leadership</div>
                 <div class="ir-sub">Owns client relationships, P&amp;L, and executive decision-making</div>
               </div>
             </div>
@@ -247,7 +252,7 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
               </div>
               <div class="ir-body">
-                <div class="ir-title">L2 — Program Managers</div>
+                <div class="ir-title">L2 &ndash; Program Managers</div>
                 <div class="ir-sub">Manages delivery plans, risk registers, budgets and milestones</div>
               </div>
             </div>
@@ -256,7 +261,7 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
               </div>
               <div class="ir-body">
-                <div class="ir-title">L3 — Team Leads</div>
+                <div class="ir-title">L3 &ndash; Team Leads</div>
                 <div class="ir-sub">Drives technical direction, code standards and team performance</div>
               </div>
             </div>
@@ -265,7 +270,7 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
               </div>
               <div class="ir-body">
-                <div class="ir-title">L4/L5 — Delivery &amp; Ops</div>
+                <div class="ir-title">L4/L5 &ndash; Delivery &amp; Ops</div>
                 <div class="ir-sub">Executes delivery tasks, supports operations and handles service requests</div>
               </div>
             </div>
@@ -307,7 +312,7 @@
               </div>
               <div class="ir-body">
                 <div class="ir-title">Escalation Ownership</div>
-                <div class="ir-sub">Escalations follow the hierarchy — L3 → L2 → L1 as required</div>
+                <div class="ir-sub">Escalations follow the hierarchy &ndash; L3 &rarr; L2 &rarr; L1 as required</div>
               </div>
             </div>
           </div>
@@ -317,8 +322,8 @@
 
       <div class="footer">
         <span>Hierarchy</span><span class="footer-dot"></span>
-        <span>Account Information Portal</span><span class="footer-dot"></span>
-        <span>IBM × Capita TVL</span>
+        <span>Capita Buddy</span><span class="footer-dot"></span>
+        <span>IBM &times; Capita TVL</span>
       </div>
     </div>
   <script>

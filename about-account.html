@@ -3,123 +3,112 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About Account Details — IBM × Capita TVL</title>
+    <title>About Account &mdash; Capita Buddy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <style>
       *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
       :root {
-        --ibm-blue: #0f62fe; --ibm-dark: #001141; --capita-red: #e4003b;
-        --bg: #f0f2f5; --surface: #ffffff; --border: #e2e5ea;
-        --text: #0f1318; --muted: #5a6374;
-        --r-lg: 18px; --r-md: 12px; --r-sm: 7px;
+        --charcoal: #1a1a2e; --amber: #c8960a; --amber2: #e8a80c; --amber3: #ffd166;
+        --bg: #f5f0e8; --surface: #fffef9; --border: #e4d9c8;
+        --text: #1e1b16; --muted: #6b5d4f;
+        --r-lg: 14px; --r-md: 10px; --r-sm: 6px;
       }
-      body { font-family: "Segoe UI", system-ui, sans-serif; background: var(--bg); color: var(--text); font-size: 12.5px; line-height: 1.55; }
-      .topbar { background: var(--ibm-dark); height: 46px; display: flex; align-items: center; padding: 0 24px; gap: 10px; position: sticky; top: 0; z-index: 100; border-bottom: 2px solid var(--ibm-blue); }
-      .topbar-back { display: inline-flex; align-items: center; gap: 6px; color: #7eb3ff; font-size: 11px; font-weight: 600; text-decoration: none; padding: 4px 10px; border-radius: 6px; border: 1px solid rgba(15,98,254,0.35); transition: background 0.15s; }
-      .topbar-back:hover { background: rgba(15,98,254,0.15); }
+      body { font-family: "Inter","Segoe UI",system-ui,sans-serif; background: var(--bg); color: var(--text); font-size: 13px; line-height: 1.6; }
+      .topbar { background: var(--charcoal); height: 54px; display: flex; align-items: center; padding: 0 26px; gap: 10px; position: sticky; top: 0; z-index: 100; border-bottom: 3px solid var(--amber2); }
+      .topbar-brand { font-family: "Playfair Display",Georgia,serif; font-size: 18px; font-weight: 900; color: #fff; display: flex; align-items: center; gap: 8px; }
+      .topbar-brand .brand-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--amber2); display: inline-block; }
+      .topbar-back { display: inline-flex; align-items: center; gap: 6px; color: #f0d8a0; font-size: 11px; font-weight: 600; text-decoration: none; padding: 4px 10px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.22); transition: background 0.15s; }
+      .topbar-back:hover { background: rgba(255,255,255,0.1); }
       .topbar-sep { flex: 1; }
-      .topbar-crumb { color: #a8b8d8; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; font-weight: 700; }
-      .topbar-crumb span { color: #4d94ff; }
-      .topbar-badge { background: rgba(15,98,254,0.18); border: 1px solid rgba(15,98,254,0.4); border-radius: 20px; padding: 2px 10px; font-size: 10px; color: #7eb3ff; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
-      .layout { max-width: 1000px; margin: 0 auto; padding: 26px 20px 52px; }
-      .page-hero { border-radius: var(--r-lg); background: linear-gradient(135deg, #001141 0%, #0a1f5c 45%, #160030 100%); margin-bottom: 24px; overflow: hidden; position: relative; border: 1px solid rgba(15,98,254,0.25); }
-      .page-hero::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(rgba(15,98,254,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(15,98,254,0.06) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; }
-      .hero-inner { position: relative; z-index: 1; padding: 26px 32px; display: flex; align-items: center; gap: 20px; }
-      .hero-icon { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 6px 18px rgba(15,98,254,0.35); }
-      .hero-text h1 { font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 5px; letter-spacing: -0.2px; }
-      .hero-text h1 em { font-style: normal; background: linear-gradient(90deg,#4d94ff,#c4b5fd); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-      .hero-text p { color: #a8bcd6; font-size: 12px; max-width: 560px; line-height: 1.6; }
-      .section-divider { display: flex; align-items: center; gap: 10px; margin: 20px 0 14px; }
+      .topbar-crumb { color: #f0d8a0; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; font-weight: 700; }
+      .topbar-crumb span { color: var(--amber3); }
+      .topbar-badge { background: rgba(255,255,255,0.10); border: 1px solid rgba(255,255,255,0.22); border-radius: 4px; padding: 3px 10px; font-size: 10px; color: #f0d8a0; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+      .user-chip { display: inline-flex; align-items: center; gap: 7px; background: rgba(255,255,255,0.10); border: 1px solid rgba(255,255,255,0.22); border-radius: 4px; padding: 3px 10px 3px 6px; font-size: 11px; color: #f0d8a0; font-weight: 600; }
+      .user-avatar { width: 22px; height: 22px; border-radius: 50%; background: var(--amber); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; color: #fff; flex-shrink: 0; }
+      .btn-logout { display: inline-flex; align-items: center; gap: 5px; background: transparent; border: 1px solid rgba(255,255,255,0.22); border-radius: 4px; padding: 3px 10px; font-size: 11px; color: #f0d8a0; font-weight: 600; cursor: pointer; font-family: inherit; transition: background 0.15s; }
+      .btn-logout:hover { background: rgba(255,255,255,0.1); color: #fff; }
+
+      .layout { max-width: 1000px; margin: 0 auto; padding: 28px 22px 56px; }
+
+      /* Page hero */
+      .page-hero { border-radius: var(--r-lg); background: var(--charcoal); margin-bottom: 26px; overflow: hidden; position: relative; border: 1px solid rgba(232,168,12,0.2); }
+      .page-hero::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(200,150,10,0.08) 1px, transparent 1px); background-size: 28px 28px; pointer-events: none; }
+      .hero-inner { position: relative; z-index: 1; padding: 28px 34px; display: flex; align-items: center; gap: 20px; }
+      .hero-icon { width: 56px; height: 56px; border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+      .hero-text h1 { font-family: "Playfair Display",Georgia,serif; font-size: 24px; font-weight: 900; color: #fff; margin-bottom: 5px; }
+      .hero-text h1 em { font-style: italic; color: var(--amber3); }
+      .hero-text p { color: rgba(240,216,160,0.85); font-size: 12px; max-width: 560px; line-height: 1.6; }
+
+      /* Section dividers */
+      .section-divider { display: flex; align-items: center; gap: 10px; margin: 22px 0 16px; }
       .section-divider-line { flex: 1; height: 1px; background: var(--border); }
-      .section-divider-text { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); white-space: nowrap; }
-      .detail-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
-      .detail-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 18px 20px; position: relative; overflow: hidden; transition: transform 0.18s, box-shadow 0.18s; }
-      .detail-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.09); }
+      .section-divider-text { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); white-space: nowrap; }
+
+      /* Detail cards */
+      .detail-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 14px; }
+      .detail-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 20px 22px; position: relative; overflow: hidden; transition: transform 0.18s, box-shadow 0.18s; }
+      .detail-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(26,26,46,0.1); border-color: var(--amber); }
       .detail-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: var(--r-lg) var(--r-lg) 0 0; }
       .full-width { grid-column: 1/-1; }
-      .dc-head { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
-      .dc-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-      .dc-badge { display: inline-block; padding: 1px 7px; border-radius: 20px; font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 3px; }
+
+      .dc-head { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+      .dc-icon { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
       .dc-title { font-size: 13px; font-weight: 700; color: var(--text); line-height: 1.25; }
+
       .item-rows { display: flex; flex-direction: column; }
-      .item-row { display: flex; align-items: flex-start; gap: 9px; padding: 8px 8px; border-radius: var(--r-sm); transition: background 0.13s; }
-      .item-row:hover { background: #f7f9fc; }
+      .item-row { display: flex; align-items: flex-start; gap: 9px; padding: 8px; border-radius: var(--r-sm); transition: background 0.13s; }
+      .item-row:hover { background: #fef3c7; }
       .ir-icon { width: 26px; height: 26px; border-radius: 7px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
       .ir-icon svg { width: 13px; height: 13px; stroke-width: 2.2; }
       .ir-body { flex: 1; }
-      .ir-title { font-size: 12px; font-weight: 700; color: #111827; line-height: 1.35; }
-      .ir-sub { font-size: 11px; color: var(--muted); margin-top: 1px; line-height: 1.4; }
-      .info-table { width: 100%; border-collapse: collapse; font-size: 12px; }
-      .info-table th, .info-table td { text-align: left; padding: 8px 11px; border-bottom: 1px solid var(--border); vertical-align: top; }
-      .info-table th { background: #f9fafb; font-weight: 700; font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em; color: #374151; }
-      .status-chip { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 20px; font-size: 10px; font-weight: 700; }
-      .sc-active { background: #d1fae5; color: #065f46; }
-      .sc-review { background: #fef3c7; color: #92400e; }
-      .sc-pending { background: #e0e7ff; color: #3730a3; }
+      .ir-title { font-size: 12px; font-weight: 700; color: var(--text); line-height: 1.35; }
+      .ir-sub { font-size: 11.5px; color: var(--muted); margin-top: 1px; line-height: 1.45; }
+
+      /* Info table */
+      .info-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+      .info-table th, .info-table td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+      .info-table th { background: #f5ead0; font-weight: 700; font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--amber); }
+
+      /* TV Licensing text block */
+      .tvl-block { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 20px 22px; position: relative; overflow: hidden; }
+      .tvl-block::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: var(--r-lg) var(--r-lg) 0 0; }
+      .tvl-block + .tvl-block { margin-top: 14px; }
+      .tvl-label { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; padding: 2px 8px; border-radius: 3px; margin-bottom: 10px; display: inline-block; }
+      .tvl-block h3 { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+      .tvl-block p { font-size: 12.5px; color: var(--muted); line-height: 1.65; }
+
+      /* Color helpers */
+      .c-amber  { background: #fef3c7; color: #b45309; }
+      .c-teal   { background: #ccfbf1; color: #0d9488; }
       .c-blue   { background: #dbeafe; color: #1d4ed8; }
       .c-purple { background: #ede9fe; color: #7c3aed; }
-      .c-teal   { background: #ccfbf1; color: #0d9488; }
-      .c-indigo { background: #e0e7ff; color: #4338ca; }
-      .c-orange { background: #ffedd5; color: #ea580c; }
       .c-green  { background: #d1fae5; color: #059669; }
-      .c-rose   { background: #ffe4e6; color: #e11d48; }
-      .c-red    { background: #fee2e2; color: #dc2626; }
-      .c-sky    { background: #e0f2fe; color: #0284c7; }
-      .t-blue   { background: #dbeafe; color: #1e40af; }
-      .t-purple { background: #ede9fe; color: #5b21b6; }
-      .t-teal   { background: #ccfbf1; color: #0f766e; }
-      .t-indigo { background: #e0e7ff; color: #3730a3; }
-      .t-orange { background: #ffedd5; color: #9a3412; }
-      .t-green  { background: #d1fae5; color: #065f46; }
-      .t-rose   { background: #ffe4e6; color: #9f1239; }
-      .t-red    { background: #fee2e2; color: #b91c1c; }
+
+      .stripe-amber::before  { background: linear-gradient(90deg, var(--amber2), #ffd166); }
+      .stripe-teal::before   { background: linear-gradient(90deg,#0d9488,#5eead4); }
       .stripe-blue::before   { background: linear-gradient(90deg,#0f62fe,#38bdf8); }
       .stripe-purple::before { background: linear-gradient(90deg,#7c3aed,#c4b5fd); }
-      .stripe-teal::before   { background: linear-gradient(90deg,#0d9488,#5eead4); }
-      .stripe-indigo::before { background: linear-gradient(90deg,#4338ca,#a5b4fc); }
-      .stripe-orange::before { background: linear-gradient(90deg,#ea580c,#fdba74); }
       .stripe-green::before  { background: linear-gradient(90deg,#059669,#34d399); }
-      .stripe-rose::before   { background: linear-gradient(90deg,#e11d48,#fda4af); }
-      .stripe-red::before    { background: linear-gradient(90deg,#e4003b,#fca5a5); }
-      .footer { margin-top: 28px; padding-top: 14px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: center; gap: 8px; color: var(--muted); font-size: 11px; }
+
+      .footer { margin-top: 30px; padding-top: 14px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: center; gap: 8px; color: var(--muted); font-size: 11px; }
       .footer-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--muted); opacity: 0.4; }
-      .placeholder { color: #9ca3af; font-style: italic; }
-      @media (max-width: 640px) { .hero-inner { padding: 20px 18px; flex-direction: column; } .layout { padding: 18px 12px 40px; } .topbar { padding: 0 14px; } .topbar-crumb { display: none; } }
-      /* ── User chip + logout ── */
-      .user-chip {
-        display: inline-flex; align-items: center; gap: 7px;
-        background: rgba(255,255,255,0.08);
-        border: 1px solid rgba(255,255,255,0.15);
-        border-radius: 20px; padding: 3px 10px 3px 5px;
-        font-size: 11px; color: #d1e0f5; font-weight: 600;
-      }
-      .user-avatar {
-        width: 22px; height: 22px; border-radius: 50%;
-        background: #0f62fe;
-        display: flex; align-items: center; justify-content: center;
-        font-size: 10px; font-weight: 800; color: #fff; flex-shrink: 0;
-      }
-      .btn-logout {
-        display: inline-flex; align-items: center; gap: 5px;
-        background: transparent;
-        border: 1px solid rgba(255,255,255,0.2);
-        border-radius: 6px; padding: 3px 10px;
-        font-size: 11px; color: #a8b8d8; font-weight: 600;
-        cursor: pointer; font-family: inherit;
-        transition: background 0.15s, color 0.15s;
-      }
-      .btn-logout:hover { background: rgba(255,255,255,0.08); color: #fff; }
-      @media (max-width: 640px) { .user-chip span.user-name { display: none; } }
+
+      @media (max-width: 640px) { .hero-inner { padding: 20px 18px; flex-direction: column; } .layout { padding: 18px 12px 40px; } .topbar { padding: 0 14px; } .topbar-crumb { display: none; } .user-chip span.user-name { display: none; } }
     </style>
   </head>
   <body>
     <nav class="topbar">
+      <span class="topbar-brand">
+        <span class="brand-dot"></span>
+        Capita Buddy
+      </span>
       <a class="topbar-back" href="index.html">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-        Back to Portal
+        Back
       </a>
       <div class="topbar-sep"></div>
-      <span class="topbar-crumb">Portal <span>/</span> About Account Details</span>
-      <span class="topbar-badge">IBM × Capita TVL</span>
+      <span class="topbar-crumb">Portal <span>/</span> About Account</span>
+      <span class="topbar-badge">IBM &times; Capita TVL</span>
       <div class="user-chip" id="userChip" style="display:none;">
         <div class="user-avatar" id="userAvatar"></div>
         <span class="user-name" id="userName"></span>
@@ -129,37 +118,36 @@
         Sign Out
       </button>
     </nav>
+
     <div class="layout">
+
       <!-- PAGE HERO -->
       <div class="page-hero">
         <div class="hero-inner">
-          <div class="hero-icon" style="background: linear-gradient(135deg, #e4003b, #0f62fe);">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <div class="hero-icon" style="background: linear-gradient(135deg, #b45309, #e8a80c);">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
           </div>
           <div class="hero-text">
-            <h1><em>About Account Details</em></h1>
-            <p>Core account information, client details, business objectives, key stakeholders and the overall delivery model for this engagement.</p>
+            <h1>About <em>Account Details</em></h1>
+            <p>TV Licensing background, Capita&rsquo;s role as BBC-contracted administrator, and account overview for IBM &times; Capita TVL.</p>
           </div>
         </div>
       </div>
 
-      <!-- SECTION DIVIDER -->
+      <!-- ACCOUNT OVERVIEW TABLE -->
       <div class="section-divider">
         <div class="section-divider-line"></div>
         <span class="section-divider-text">Account Overview</span>
         <div class="section-divider-line"></div>
       </div>
 
-      <!-- FULL-WIDTH INFO TABLE -->
-      <div class="detail-grid" style="margin-bottom: 14px;">
-        <div class="detail-card full-width stripe-red">
+      <div class="detail-grid" style="margin-bottom:16px;">
+        <div class="detail-card full-width stripe-amber">
           <div class="dc-head">
-            <div class="dc-icon c-red">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <div class="dc-icon c-amber">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
             </div>
-            <div>
-              <div class="dc-title">Account Information</div>
-            </div>
+            <div><div class="dc-title">Account Information</div></div>
           </div>
           <table class="info-table">
             <thead>
@@ -170,81 +158,76 @@
             </thead>
             <tbody>
               <tr>
-                <td><strong>Account Name</strong></td>
-                <td><span class="placeholder">Add value</span></td>
-              </tr>
-              <tr>
                 <td><strong>Client Organisation</strong></td>
-                <td><span class="placeholder">Add value</span></td>
-              </tr>
-              <tr>
-                <td><strong>Contract Start Date</strong></td>
-                <td><span class="placeholder">Add value</span></td>
-              </tr>
-              <tr>
-                <td><strong>Contract Type</strong></td>
-                <td><span class="placeholder">Add value</span></td>
+                <td>Capita Business Services Ltd</td>
               </tr>
               <tr>
                 <td><strong>Primary Location</strong></td>
-                <td><span class="placeholder">Add value</span></td>
-              </tr>
-              <tr>
-                <td><strong>Delivery Model</strong></td>
-                <td><span class="placeholder">Add value</span></td>
-              </tr>
-              <tr>
-                <td><strong>IBM Engagement Lead</strong></td>
-                <td><span class="placeholder">Add value</span></td>
-              </tr>
-              <tr>
-                <td><strong>Client Engagement Lead</strong></td>
-                <td><span class="placeholder">Add value</span></td>
+                <td>United Kingdom</td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
 
-      <!-- 3-COL DETAIL GRID -->
+      <!-- TV LICENSING CONTENT -->
+      <div class="section-divider">
+        <div class="section-divider-line"></div>
+        <span class="section-divider-text">TV Licensing Background</span>
+        <div class="section-divider-line"></div>
+      </div>
+
+      <!-- Block 1: Legal Requirement -->
+      <div class="tvl-block stripe-teal">
+        <span class="tvl-label c-teal">Legal Requirement</span>
+        <h3>UK TV Licence Law</h3>
+        <p>Anyone in the UK watching or recording television as it is being broadcast or simulcast on any device &mdash; including TVs, mobiles, laptops and PCs &mdash; must, by law, be covered by a valid TV licence. A &lsquo;live&rsquo; TV programme is one watched or recorded at the same time (or virtually the same time) as it is being broadcast or otherwise distributed to members of the public. As a general rule, if a person is watching a programme at the same time as it is being shown on TV, the programme is considered &lsquo;live&rsquo;. This is sometimes known as simulcasting.</p>
+      </div>
+
+      <!-- Block 2: TV Licensing & Capita -->
+      <div class="tvl-block stripe-blue">
+        <span class="tvl-label c-blue">TV Licensing &amp; Capita</span>
+        <h3>Capita&rsquo;s Role as Administrator</h3>
+        <p>&ldquo;TV Licensing&rdquo; is a trade mark used by companies contracted by the BBC to administer the collection of television licence fees and enforcement of the television licensing system. The majority of the administration of TV Licensing is contracted to Capita Business Services Ltd, which undertakes the majority of the administration of the TV Licensing system, with the recoveries phase of the Collections Life Cycle.</p>
+      </div>
+
+      <!-- DETAIL CARDS -->
+      <div class="section-divider" style="margin-top:24px;">
+        <div class="section-divider-line"></div>
+        <span class="section-divider-text">Delivery Detail</span>
+        <div class="section-divider-line"></div>
+      </div>
+
       <div class="detail-grid">
 
         <!-- Business Objectives -->
-        <div class="detail-card stripe-red">
+        <div class="detail-card stripe-amber">
           <div class="dc-head">
-            <div class="dc-icon c-red">
+            <div class="dc-icon c-amber">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
             </div>
-            <div>
-              <div class="dc-title">Business Objectives</div>
-            </div>
+            <div><div class="dc-title">Business Objectives</div></div>
           </div>
           <div class="item-rows">
             <div class="item-row">
-              <div class="ir-icon c-red">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-              </div>
+              <div class="ir-icon c-amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
               <div class="ir-body">
-                <div class="ir-title">Primary Goal</div>
-                <div class="ir-sub">Summarise the core business outcome expected</div>
+                <div class="ir-title">Licence Fee Collection</div>
+                <div class="ir-sub">Efficient and compliant collection of TV licence fees across the UK</div>
               </div>
             </div>
             <div class="item-row">
-              <div class="ir-icon c-red">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-              </div>
+              <div class="ir-icon c-amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
               <div class="ir-body">
-                <div class="ir-title">Secondary Goals</div>
-                <div class="ir-sub">Supporting objectives and KPIs</div>
+                <div class="ir-title">Enforcement &amp; Compliance</div>
+                <div class="ir-sub">Supporting the enforcement of the television licensing system</div>
               </div>
             </div>
             <div class="item-row">
-              <div class="ir-icon c-red">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-              </div>
+              <div class="ir-icon c-amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
               <div class="ir-body">
-                <div class="ir-title">Strategic Priorities</div>
-                <div class="ir-sub">Key initiatives and transformation goals</div>
+                <div class="ir-title">Collections Life Cycle</div>
+                <div class="ir-sub">End-to-end collections including the recoveries phase</div>
               </div>
             </div>
           </div>
@@ -256,46 +239,20 @@
             <div class="dc-icon c-blue">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
             </div>
-            <div>
-              <div class="dc-title">Key Stakeholders</div>
-            </div>
+            <div><div class="dc-title">Key Stakeholders</div></div>
           </div>
           <div class="item-rows">
             <div class="item-row">
-              <div class="ir-icon c-blue">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-              </div>
-              <div class="ir-body">
-                <div class="ir-title">Executive Sponsor</div>
-                <div class="ir-sub">Client senior stakeholder</div>
-              </div>
+              <div class="ir-icon c-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+              <div class="ir-body"><div class="ir-title">Executive Sponsor</div><div class="ir-sub">Client senior stakeholder</div></div>
             </div>
             <div class="item-row">
-              <div class="ir-icon c-blue">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-              </div>
-              <div class="ir-body">
-                <div class="ir-title">Delivery Lead</div>
-                <div class="ir-sub">IBM account delivery manager</div>
-              </div>
+              <div class="ir-icon c-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+              <div class="ir-body"><div class="ir-title">Delivery Lead</div><div class="ir-sub">IBM account delivery manager</div></div>
             </div>
             <div class="item-row">
-              <div class="ir-icon c-blue">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-              </div>
-              <div class="ir-body">
-                <div class="ir-title">Technical Lead</div>
-                <div class="ir-sub">IBM solution architect</div>
-              </div>
-            </div>
-            <div class="item-row">
-              <div class="ir-icon c-blue">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-              </div>
-              <div class="ir-body">
-                <div class="ir-title">Client IT Lead</div>
-                <div class="ir-sub">Client-side technical owner</div>
-              </div>
+              <div class="ir-icon c-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+              <div class="ir-body"><div class="ir-title">Technical Lead</div><div class="ir-sub">IBM solution architect</div></div>
             </div>
           </div>
         </div>
@@ -306,46 +263,20 @@
             <div class="dc-icon c-purple">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>
             </div>
-            <div>
-              <div class="dc-title">Delivery Model</div>
-            </div>
+            <div><div class="dc-title">Delivery Model</div></div>
           </div>
           <div class="item-rows">
             <div class="item-row">
-              <div class="ir-icon c-purple">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>
-              </div>
-              <div class="ir-body">
-                <div class="ir-title">Operating Model</div>
-                <div class="ir-sub">Onsite / Offshore / Hybrid mix</div>
-              </div>
+              <div class="ir-icon c-purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg></div>
+              <div class="ir-body"><div class="ir-title">Operating Model</div><div class="ir-sub">Onsite / Offshore / Hybrid mix</div></div>
             </div>
             <div class="item-row">
-              <div class="ir-icon c-purple">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>
-              </div>
-              <div class="ir-body">
-                <div class="ir-title">Team Location</div>
-                <div class="ir-sub">Primary delivery location(s)</div>
-              </div>
+              <div class="ir-icon c-purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg></div>
+              <div class="ir-body"><div class="ir-title">Primary Delivery Location</div><div class="ir-sub">United Kingdom</div></div>
             </div>
             <div class="item-row">
-              <div class="ir-icon c-purple">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>
-              </div>
-              <div class="ir-body">
-                <div class="ir-title">Working Hours</div>
-                <div class="ir-sub">Core hours and time zone alignment</div>
-              </div>
-            </div>
-            <div class="item-row">
-              <div class="ir-icon c-purple">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>
-              </div>
-              <div class="ir-body">
-                <div class="ir-title">Governance Cadence</div>
-                <div class="ir-sub">Weekly, fortnightly, monthly review cadences</div>
-              </div>
+              <div class="ir-icon c-purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg></div>
+              <div class="ir-body"><div class="ir-title">Governance Cadence</div><div class="ir-sub">Weekly, fortnightly, monthly review cadences</div></div>
             </div>
           </div>
         </div>
@@ -353,11 +284,12 @@
       </div>
 
       <div class="footer">
-        <span>About Account Details</span><span class="footer-dot"></span>
-        <span>Account Information Portal</span><span class="footer-dot"></span>
-        <span>IBM × Capita TVL</span>
+        <span>About Account</span><span class="footer-dot"></span>
+        <span>Capita Buddy</span><span class="footer-dot"></span>
+        <span>IBM &times; Capita TVL</span>
       </div>
     </div>
+
   <script>
     (function () {
       try {
@@ -369,11 +301,8 @@
         document.getElementById('userName').textContent    = user.name;
         document.getElementById('userChip').style.display  = 'inline-flex';
         document.getElementById('logoutBtn').style.display = 'inline-flex';
-      } catch (e) {
-        window.location.replace('login.html');
-      }
+      } catch (e) { window.location.replace('login.html'); }
     })();
-
     function logout() {
       try { sessionStorage.removeItem('ibm_portal_user'); } catch(e){}
       window.location.replace('login.html');
